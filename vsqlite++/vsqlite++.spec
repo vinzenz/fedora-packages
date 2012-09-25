@@ -89,6 +89,7 @@ make DESTDIR=%{buildroot} install
 - New doc sub package for the html documentation and code example
 - Removed static package
 - Removed unnecessary ldconfig call on devel package
+- One BuildRequires entry per line
 
 * Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.7-1
 - Initial package
