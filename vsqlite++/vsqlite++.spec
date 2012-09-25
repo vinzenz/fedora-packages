@@ -1,6 +1,6 @@
 Name:        vsqlite++
-Version:    0.3.7
-Release:    2%{?dist}
+Version:    0.3.9
+Release:    1%{?dist}
 Summary:    Well designed C++ sqlite 3.x wrapper library
 
 Group:      Development/Libraries
@@ -8,14 +8,12 @@ License:    BSD
 URL:        https://github.com/vinzenz/vsqlite--
 Source0:    https://github.com/downloads/vinzenz/vsqlite--/%{name}-%{version}.tar.gz
 
-BuildRequires:  premake,
-                boost-devel,
-                sqlite-devel,
-                autoconf,
-                automake,
-                libtool,
-                doxygen,
-                graphviz
+BuildRequires:  premake
+BuildRequires:  boost-devel
+BuildRequires:  sqlite-devel
+BuildRequires:  libtool
+BuildRequires:  doxygen
+BuildRequires:  graphviz
 
 %description
 VSQLite++ is a C++ wrapper for sqlite3 using the C++ standard library and boost.
@@ -34,11 +32,10 @@ Summary:        Development documentation for %{name}
 Group:          Development/Libraries
 
 %description doc
-This package contains development documenation files for %{name}.
+This package contains development documentation files for %{name}.
 
 %prep
 %setup -q
-./autogen.sh
 
 %build
 %configure
@@ -65,10 +62,10 @@ make DESTDIR=%{buildroot} install
 %postun -p /sbin/ldconfig
 
 %files doc
-%doc Changelog README LICENSE examples/sqlite_wrapper.cpp html/*
+%doc ChangeLog README COPYING examples/sqlite_wrapper.cpp html/*
 
 %files devel
-%doc Changelog README LICENSE
+%doc ChangeLog README COPYING
 %{_libdir}/libvsqlitepp.so
 %{_includedir}/sqlite
 # Don't add .la/.a to the package
@@ -76,10 +73,17 @@ make DESTDIR=%{buildroot} install
 %exclude %{_libdir}/libvsqlitepp.a
 
 %files
-%doc Changelog README LICENSE 
+%doc ChangeLog README COPYING 
 %{_libdir}/libvsqlitepp.so.*
 
 %changelog
+* Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.9-1
+- Updated to upstream vsqlite++-0.3.9
+- Removing now obsolete ./autogen.sh call in prep
+- Remove of unnecessary BuildRequires automake and autoconf
+- Upstream renamed Changelog to ChangeLog - reflected changes
+- Upstream renamed LICENSE to COPYING - reflected changes
+
 * Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.7-2
 - Fix for %%description spelling 'ibrary' => 'library'
 - Fix for unused libm dependency
