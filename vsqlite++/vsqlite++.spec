@@ -1,6 +1,6 @@
 Name:        vsqlite++
 Version:    0.3.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Well designed C++ sqlite 3.x wrapper library
 
 Group:      Development/Libraries
@@ -11,7 +11,7 @@ Source0:    https://github.com/downloads/vinzenz/vsqlite--/%{name}-%{version}.ta
 BuildRequires: premake, boost-devel, sqlite-devel, autoconf, automake, libtool
 
 %description
-VSQLite++ is a C++ wrapper for sqlite3 using the C++ standard ibrary and boost.
+VSQLite++ is a C++ wrapper for sqlite3 using the C++ standard library and boost.
 VSQLite++ is designed to be easy to use and focuses on simplicity.
 
 %package devel
@@ -36,6 +36,7 @@ This package contains the static version of libvsqlitepp for %{name}.
 
 %build
 %configure
+sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make %{?_smp_mflags}
 
 %install
@@ -69,5 +70,9 @@ rm -f %{buildroot}%{_libdir}/libvsqlitepp.la
 %{_libdir}/libvsqlitepp.so.*
 
 %changelog
+* Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.7-2
+- Fix for %%description spelling 'ibrary' => 'library'
+- Fix for unused libm dependency
 * Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.7-1
 - Initial package
+
