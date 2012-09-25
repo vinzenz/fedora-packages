@@ -69,5 +69,5 @@ rm -f %{buildroot}%{_libdir}/libvsqlitepp.la
 %{_libdir}/libvsqlitepp.so.*
 
 %changelog
-* Sat Sep 22 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.7-1
+* Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.7-1
 - Initial package
