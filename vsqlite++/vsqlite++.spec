@@ -1,6 +1,6 @@
 Name:        vsqlite++
 Version:    0.3.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Well designed C++ sqlite 3.x wrapper library
 
 Group:      Development/Libraries
@@ -55,9 +55,6 @@ install -p -m 755 -d %{buildroot}%{_docdir}
 # build for all
 make DESTDIR=%{buildroot} install
 
-# and lets get rid of .a && .la 
-#rm -f %{buildroot}%{_libdir}/libvsqlitepp.(la|a)
-
 %post -p /sbin/ldconfig 
 %postun -p /sbin/ldconfig
 
@@ -77,6 +74,9 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/libvsqlitepp.so.*
 
 %changelog
+* Wed Sep 26 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.9-2
+- Removed comment with macro - Not needed anymore
+
 * Tue Sep 25 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.9-1
 - Updated to upstream vsqlite++-0.3.9
 - Removing now obsolete ./autogen.sh call in prep
