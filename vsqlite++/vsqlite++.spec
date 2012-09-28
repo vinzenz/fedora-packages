@@ -1,6 +1,6 @@
 Name:        vsqlite++
 Version:    0.3.9
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Well designed C++ sqlite 3.x wrapper library
 
 Group:      Development/Libraries
@@ -28,6 +28,7 @@ Requires:       %{name} = %{version}-%{release}
 This package contains development files for %{name}.
 
 %package doc
+BuildArch:      noarch
 Summary:        Development documentation for %{name}
 Group:          Development/Libraries
 
@@ -74,6 +75,9 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/libvsqlitepp.so.*
 
 %changelog
+* Fri Sep 28 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.9-3
+- Documentation subpackage now noarch
+
 * Wed Sep 26 2012 Vinzenz Feenstra <evilissimo@gmail.com> - 0.3.9-2
 - Removed comment with macro - Not needed anymore
 
