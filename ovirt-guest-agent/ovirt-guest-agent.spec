@@ -1,5 +1,5 @@
 
-%global release_version 2
+%global release_version 3
 
 %global _moduledir /%{_lib}/security
 %global _kdmrc /etc/kde/kdm/kdmrc
@@ -38,6 +38,11 @@ Requires: python-ethtool >= 0.4-1
 Requires: udev >= 095-14.23
 Requires: kernel > 2.6.18-238.5.0
 Requires: usermode
+%if 0%{?fedora} >= 18
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
+%endif
 Provides: %{name} = %{version}-%{release}
 
 # If selinux is installed and has a version lower than tested, our package
@@ -122,12 +127,22 @@ exit 0
 /sbin/udevadm trigger --subsystem-match="virtio-ports" \
     --attr-match="name=com.redhat.rhevm.vdsm"
 
-/bin/systemctl daemon-reload
+%if 0%{?fedora} < 17
+    /bin/systemctl daemon-reload
+%else
+    # New macro for F18+
+    %systemd_post ovirt-guest-agent.service
+%endif
 
 %preun common
 if [ "$1" -eq 0 ]
 then
-    /bin/systemctl stop ovirt-guest-agent.service > /dev/null 2>&1
+    %if 0%{?fedora} < 17
+        /bin/systemctl stop ovirt-guest-agent.service > /dev/null 2>&1
+    %else
+        # New macro for F18+
+        %systemd_preun ovirt-guest-agent.service
+    %endif
 
     # Send an "uninstalled" notification to vdsm.
     VIRTIO=`grep "^device" %{_sysconfdir}/ovirt-guest-agent.conf | awk '{ print $3; }'`
@@ -140,14 +155,35 @@ fi
 %postun common
 if [ "$1" -eq 0 ]
 then
-    /bin/systemctl daemon-reload
+    %if 0%{?fedora} < 17
+        /bin/systemctl daemon-reload
+    %endif
+
     /sbin/udevadm trigger --subsystem-match="virtio-ports" \
         --attr-match="name=com.redhat.rhevm.vdsm"
 fi
 
-if [ "$1" -ge 1 ]; then
-    /bin/systemctl try-restart ovirt-guest-agent.service >/dev/null 2>&1 || :
+%if 0%{?fedora} < 17
+    if [ "$1" -ge 1 ]; then
+        /bin/systemctl try-restart ovirt-guest-agent.service >/dev/null 2>&1 || :
+    fi
+%else
+    # New macro for F18+
+    %systemd_postun_with_restart ovirt-guest-agent.service
+%endif
+
+%post gdm-plugin
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun gdm-plugin
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+
+%posttrans gdm-plugin
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
 
 %files common
 %dir %attr (755,ovirtagent,ovirtagent) %{_localstatedir}/log/ovirt-guest-agent
@@ -203,6 +239,12 @@ fi
 %attr (755,root,root) %{_libdir}/kde4/kgreet_ovirtcred.so
 
 %changelog
+* Tue Jan 22 2012 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
+- All config files are now 'noreplace'
+- Refreshing the gtk icon cache during installation
+- The package is not modifying the kdmrc any longer
+- Using new systemd macros where appropriate
+
 * Wed Dec 05 2012 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-2
 - Upstream source adjusted for ovirt-guest-agent version 1.0.6
 
