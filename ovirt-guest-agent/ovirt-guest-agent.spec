@@ -1,5 +1,5 @@
 
-%global release_version 3
+%global release_version 1
 
 %global _moduledir /%{_lib}/security
 %global _kdmrc /etc/kde/kdm/kdmrc
@@ -7,7 +7,7 @@
 # Note this is not building any package
 # There exists no ovirt-guest-agent package
 Name: ovirt-guest-agent
-Version: 1.0.6
+Version: 1.0.7
 Release: %{release_version}%{?dist}
 Summary: The oVirt Guest Agent
 Group: Applications/System
@@ -239,6 +239,9 @@ fi
 %attr (755,root,root) %{_libdir}/kde4/kgreet_ovirtcred.so
 
 %changelog
+* Tue Jan 22 2012 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.7-1
+- Upstream source adjusted for ovirt-guest-agent version 1.0.7
+
 * Tue Jan 22 2012 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
 - All config files are now 'noreplace'
 - Refreshing the gtk icon cache during installation
