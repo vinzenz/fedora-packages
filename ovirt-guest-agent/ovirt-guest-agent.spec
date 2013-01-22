@@ -124,12 +124,6 @@ exit 0
 
 /bin/systemctl daemon-reload
 
-%post kdm-plugin
-if ! grep -q "^PluginsLogin=" "%{_kdmrc}";
-then
-    sed -i "s~^#PluginsLogin=winbind~PluginsLogin=ovirtcred,classic~" "%{_kdmrc}"
-fi
-
 %preun common
 if [ "$1" -eq 0 ]
 then
@@ -153,12 +147,6 @@ fi
 
 if [ "$1" -ge 1 ]; then
     /bin/systemctl try-restart ovirt-guest-agent.service >/dev/null 2>&1 || :
-fi
-
-%postun kdm-plugin
-if [ "$1" -eq 0 ]
-then
-    sed -i "s~PluginsLogin=ovirtcred,classic~#PluginsLogin=winbind~" "%{_kdmrc}"
 fi
 
 %files common
