@@ -242,7 +242,7 @@ fi
 * Tue Jan 22 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.7-1
 - Upstream source adjusted for ovirt-guest-agent version 1.0.7
 
-* Tue Jan 22 2012 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
+* Tue Jan 22 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
 - All config files are now 'noreplace'
 - Refreshing the gtk icon cache during installation
 - The package is not modifying the kdmrc any longer
