@@ -171,14 +171,14 @@ fi
 
 # These are intentionally NOT 'noreplace' If this is modified by an user,
 # this actually might break it.
-%config %{_sysconfdir}/pam.d/ovirt-locksession
-%config %{_sysconfdir}/pam.d/ovirt-shutdown
-%config %{_sysconfdir}/pam.d/ovirt-hibernate
-%config %attr (644,root,root) %{_sysconfdir}/udev/rules.d/55-ovirt-guest-agent.rules
-%config %{_sysconfdir}/dbus-1/system.d/org.ovirt.vdsm.Credentials.conf
-%config %{_sysconfdir}/security/console.apps/ovirt-locksession
-%config %{_sysconfdir}/security/console.apps/ovirt-shutdown
-%config %{_sysconfdir}/security/console.apps/ovirt-hibernate
+%config(noreplace) %{_sysconfdir}/pam.d/ovirt-locksession
+%config(noreplace) %{_sysconfdir}/pam.d/ovirt-shutdown
+%config(noreplace) %{_sysconfdir}/pam.d/ovirt-hibernate
+%config(noreplace) %attr (644,root,root) %{_sysconfdir}/udev/rules.d/55-ovirt-guest-agent.rules
+%config(noreplace) %{_sysconfdir}/dbus-1/system.d/org.ovirt.vdsm.Credentials.conf
+%config(noreplace) %{_sysconfdir}/security/console.apps/ovirt-locksession
+%config(noreplace) %{_sysconfdir}/security/console.apps/ovirt-shutdown
+%config(noreplace) %{_sysconfdir}/security/console.apps/ovirt-hibernate
 
 %attr (755,root,root) %{_datadir}/ovirt-guest-agent/ovirt-guest-agent.py*
 
@@ -205,7 +205,7 @@ fi
 %files gdm-plugin
 # This is intentionally NOT 'noreplace' If this is modified by an user,
 # this actually might break it.
-%config %{_sysconfdir}/pam.d/gdm-ovirtcred
+%config(noreplace) %{_sysconfdir}/pam.d/gdm-ovirtcred
 %{_datadir}/icons/hicolor/*/*/*.png
 %dir %{_datadir}/gdm/simple-greeter/extensions/ovirtcred
 %{_datadir}/gdm/simple-greeter/extensions/ovirtcred/page.ui
@@ -217,7 +217,7 @@ fi
 %files kdm-plugin
 # This is intentionally NOT 'noreplace' If this is modified by an user,
 # this actually might break it.
-%config %{_sysconfdir}/pam.d/kdm-ovirtcred
+%config(noreplace) %{_sysconfdir}/pam.d/kdm-ovirtcred
 %attr (755,root,root) %{_libdir}/kde4/kgreet_ovirtcred.so
 
 %changelog
