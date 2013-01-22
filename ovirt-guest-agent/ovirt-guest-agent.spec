@@ -157,8 +157,6 @@ fi
 
 %doc AUTHORS COPYING NEWS README
 
-# These are intentionally NOT 'noreplace' If this is modified by an user,
-# this actually might break it.
 %config(noreplace) %{_sysconfdir}/pam.d/ovirt-locksession
 %config(noreplace) %{_sysconfdir}/pam.d/ovirt-shutdown
 %config(noreplace) %{_sysconfdir}/pam.d/ovirt-hibernate
@@ -191,8 +189,6 @@ fi
 
 
 %files gdm-plugin
-# This is intentionally NOT 'noreplace' If this is modified by an user,
-# this actually might break it.
 %config(noreplace) %{_sysconfdir}/pam.d/gdm-ovirtcred
 %{_datadir}/icons/hicolor/*/*/*.png
 %dir %{_datadir}/gdm/simple-greeter/extensions/ovirtcred
@@ -203,8 +199,6 @@ fi
 %exclude %{_libdir}/gdm/simple-greeter/extensions/libovirtcred.la
 
 %files kdm-plugin
-# This is intentionally NOT 'noreplace' If this is modified by an user,
-# this actually might break it.
 %config(noreplace) %{_sysconfdir}/pam.d/kdm-ovirtcred
 %attr (755,root,root) %{_libdir}/kde4/kgreet_ovirtcred.so
 
