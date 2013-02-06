@@ -127,7 +127,7 @@ exit 0
 /sbin/udevadm trigger --subsystem-match="virtio-ports" \
     --attr-match="name=com.redhat.rhevm.vdsm"
 
-%if 0%{?fedora} < 17
+%if 0%{?fedora} < 18
     /bin/systemctl daemon-reload
 %else
     # New macro for F18+
@@ -137,7 +137,7 @@ exit 0
 %preun common
 if [ "$1" -eq 0 ]
 then
-    %if 0%{?fedora} < 17
+    %if 0%{?fedora} < 18
         /bin/systemctl stop ovirt-guest-agent.service > /dev/null 2>&1
     %else
         # New macro for F18+
@@ -163,7 +163,7 @@ then
         --attr-match="name=com.redhat.rhevm.vdsm"
 fi
 
-%if 0%{?fedora} < 17
+%if 0%{?fedora} < 18
     if [ "$1" -ge 1 ]; then
         /bin/systemctl try-restart ovirt-guest-agent.service >/dev/null 2>&1 || :
     fi
@@ -239,7 +239,7 @@ fi
 %attr (755,root,root) %{_libdir}/kde4/kgreet_ovirtcred.so
 
 %changelog
-* Tue Jan 22 2012 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
+* Tue Jan 22 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
 - All config files are now 'noreplace'
 - Refreshing the gtk icon cache during installation
 - The package is not modifying the kdmrc any longer
