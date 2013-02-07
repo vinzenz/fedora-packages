@@ -1,8 +1,7 @@
 
-%global release_version 3
+%global release_version 4
 
 %global _moduledir /%{_lib}/security
-%global _kdmrc /etc/kde/kdm/kdmrc
 
 # Note this is not building any package
 # There exists no ovirt-guest-agent package
@@ -239,6 +238,9 @@ fi
 %attr (755,root,root) %{_libdir}/kde4/kgreet_ovirtcred.so
 
 %changelog
+* Tue Feb 07 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-4
+- Removal of unused global variable _kdmrc
+
 * Tue Jan 22 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 1.0.6-3
 - All config files are now 'noreplace'
 - Refreshing the gtk icon cache during installation
