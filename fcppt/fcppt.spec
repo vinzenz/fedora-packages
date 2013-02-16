@@ -1,11 +1,11 @@
-%global commit 54f20a42722baf101f811b54ce7180b073d70a6a
+%global commit 50f1574fe9fd7cfefcffae6e5d7acf6ce20c6f97
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global commitdate 20130216
 %global gittag %{commitdate}git%{shortcommit}
 
 Name: fcppt
 Version:	0.12.1
-Release:	1%{?dist}.%{gittag}
+Release:	2%{?dist}.%{gittag}
 Summary:	Freundlich's C++ toolkit
 
 Group:		Development/Libraries
@@ -86,6 +86,6 @@ popd
 %{_libdir}/libfcppt_filesystem.so.*
 
 %changelog
-* Sat Feb 16 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 0.12.1-1.20130216git54f20a4
+* Sat Feb 16 2013 Vinzenz Feenstra <vfeenstr@redhat.com> - 0.12.1-2.20130216git54f20a4
 - Initial package
 
